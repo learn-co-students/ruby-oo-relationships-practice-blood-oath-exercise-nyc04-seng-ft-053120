@@ -37,9 +37,19 @@ class Follower
         end
     end
 
+    #helper
+    def self.sorter
+        self.all.sort_by do |element|
+            element.cults.count
+        end
+    end
+    # -----
+
     def self.most_active
-        self.all.sort_by do |follower|
-            follower.cults.count
-        end.last
+        self.sorter.last
+    end
+
+    def self.top_ten
+        sorter[0..9]
     end
   end
