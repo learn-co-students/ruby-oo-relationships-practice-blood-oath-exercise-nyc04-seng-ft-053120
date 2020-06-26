@@ -1,0 +1,2 @@
+class BloodOath
+end
