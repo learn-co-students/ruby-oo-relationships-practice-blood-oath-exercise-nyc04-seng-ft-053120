@@ -22,9 +22,15 @@ class Cult
     def recruit_follower(follower)
         Bloodoath.new(follower, self, Time.now)
     end
+
+    def find_oaths
+        Bloodoath.all.select{|oath| oath.cult == self}
+    end
     
     def followers
-        Bloodoath.all.select{|oath| oath.cult == self}
+        find_oaths.map do |oath|
+            oath.follower
+        end
     end
 
     def cult_population
@@ -43,22 +49,28 @@ class Cult
         self.all.find{|cult|cult.founding_year == founding_year}
     end
 
+    # helper
+    def total_age
+        followers.inject(0) do |total, follower|
+            total + follower.age
+        end
+    end
+    # --------
 
     def average_age
-        cult_average_age = 0
-        followers.each {|oath| cult_average_age += oath.follower.age}
-        (cult_average_age/self.cult_population).to_f
+        total_age/cult_population.to_f
     end
 
     def my_followers_mottos
-        followers.map {|oath| oath.follower.life_motto}
+        followers.map {|follower| follower.life_motto}
     end
 
     def self.least_popular
-        Cult.all.sort_by{|cult|cult.cult_population}[0]
+        self.all.sort_by{|cult|cult.cult_population}.first
     end
 
-    def self.most_common_location
+    # helper
+    def self.locations_by_count
         locations = {}
         self.all.each do |cult|
             if locations[cult.location]
@@ -66,9 +78,13 @@ class Cult
             else locations[cult.location] = 1
             end
         end
-        
-        locations.sort_by do |location, value|
-            value
+        locations
+    end
+    # ------
+
+    def self.most_common_location
+        self.locations_by_count.sort_by do |location, count|
+            count
         end.last[0]
     end
 

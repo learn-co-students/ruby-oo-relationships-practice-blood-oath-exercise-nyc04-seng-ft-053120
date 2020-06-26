@@ -17,9 +17,11 @@ class Follower
         @@all
     end
 
+    #helper
     def find_oath
         Bloodoath.all.select{|oath|oath.follower == self}  
     end
+    # -------
 
     def cults
         find_oath.map do |oath|
@@ -45,8 +47,8 @@ class Follower
 
     #helper
     def self.sorter
-        self.all.sort_by do |element|
-            element.cults.count
+        self.all.sort_by do |follower|
+            follower.cults.count
         end
     end
     # -----
