@@ -12,6 +12,7 @@ class Cult
         @slogan = "hey"
         @followers = []
         @@all << self
+
     end
     
     def recruit_follower(follower)
@@ -20,6 +21,15 @@ class Cult
 
     def cult_population
         @followers.length
+    end
+    def self.find_by_follower(follower)
+        cults = []
+        @@all.each do |cult|
+            if cult.followers.include?(follower)
+                cults << cult
+            end
+        end
+        cults
     end
 
     def self.find_by(type, value)

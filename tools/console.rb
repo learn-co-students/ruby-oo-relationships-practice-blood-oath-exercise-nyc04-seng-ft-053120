@@ -12,9 +12,18 @@ cp_cult = Cult.new("Cool Peeps", "NY")
 ff_cult = Cult.new("French Fry", "Miami")
 
 karen = Follower.new("Karen")
+boomer = Follower.new("Boomer")
+alvi = Follower.new("Alvi")
+karen.age = 68
+boomer.age = 47
+alvi.age = 21
 
 be_cult.recruit_follower(karen)
 ff_cult.recruit_follower(karen)
+cp_cult.recruit_follower(boomer)
+cp_cult.recruit_follower(alvi)
+
+
 
 # puts be_cult.cult_population
 # puts ff_cult.cult_population
