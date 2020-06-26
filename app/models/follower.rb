@@ -3,10 +3,10 @@ class Follower
     @@all = []
 
     def initialize(name, age, life_motto)
-      @name = name
-      @age = age
-      @life_motto = life_motto
-      save
+        @name = name
+        @age = age
+        @life_motto = life_motto
+        save
     end
 
     def save
@@ -14,15 +14,21 @@ class Follower
     end
 
     def self.all
-      @@all
+        @@all
+    end
+
+    def find_oath
+        Bloodoath.all.select{|oath|oath.follower == self}  
     end
 
     def cults
-      Bloodoath.all.select{|oath|oath.follower == self}
+        find_oath.map do |oath|
+            oath.cult
+        end
     end
 
     def join_cult(cult)
-      Bloodoath.new(self, cult, Time.now)
+        Bloodoath.new(self, cult, Time.now)
     end
 
     def self.of_a_certain_age(age)
@@ -32,8 +38,8 @@ class Follower
     end
   
     def my_cults_slogans
-        cults.map do |oath|
-            oath.cult.slogan
+        cults.map do |cult|
+            cult.slogan
         end
     end
 
