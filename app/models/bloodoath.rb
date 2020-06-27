@@ -14,4 +14,9 @@ class Bloodoath
   def self.all
     @@all
   end
+
+  def self.first_oath
+    first_bloodoath = self.all.min { |bloodoath| bloodoath.date }
+    first_bloodoath.follower
+  end
 end

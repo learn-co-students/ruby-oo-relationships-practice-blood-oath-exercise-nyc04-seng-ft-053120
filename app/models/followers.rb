@@ -18,14 +18,42 @@ class Follower
          self.all.select { |follower_instance| follower_instance.age >= age }
     end
 
+    def self.most_active
+        # has the longest cults.length!
+        self.all.max_by { |follower| follower.cults.length }
+    end
+
+    def self.top_ten
+        # get cults.length for all and sort and limit to 10
+        # empty hash
+        activity_hash = {}
+
+        # get follower => cults.length
+        self.all.each { |follower| activity_hash[follower] = follower.cults.length }
+        
+        # get array of arrays of sorted data from hash
+        sorted_list = activity_hash.sort_by { |follower, count| count }.reverse
+
+        # get followers into an array
+        sorted_array = sorted_list.map { |array| array[0] }
+
+        # limit array to 10
+        sorted_array.take(10)
+    end
+    
+    def bloodoaths
+        Bloodoath.all.select { |bo_instance| bo_instance.follower == self }
+    end
+
     def cults
-        #binding.pry
-        f = Bloodoath.all.select { |bo_instance| bo_instance.follower == self }
-        f.map { |bloodoath| bloodoath.cult }
+        bloodoaths.map { |bloodoath| bloodoath.cult }
     end
 
     def join_cult(cult)
-        #binding.pry
         Bloodoath.new(cult, self)
+    end
+
+    def my_cults_slogans
+        cults.map { |cult| cult.slogan }
     end
 end
