@@ -10,8 +10,14 @@ cult1 = Cult.new("Vamps", "NYC", 2020, "Vampires for life")
 cult2 = Cult.new("Catoholic", "Brooklyn", 2019, "MEOW")
 cult3 = Cult.new("Dogaholics", "BRONX", 2019, "Laugh")
 
-cult1.recruit_follower("Jorge")
-cult2.recruit_follower("Anh")
+follower1 = Follower.new("Jorge", 29, "COFEEEEE!!!!!!!")
+follower2 = Follower.new("Anh", 27, "Cool beans")
+
+cult1.recruit_follower(follower2)
+cult2.recruit_follower(follower1)
+
+# cult1.cult_population
+
 binding.pry
 
 puts "Mwahahaha!" # just in case pry is buggy and exits

@@ -13,15 +13,16 @@ class Cult
     end
 
     def recruit_follower(follower)
-        self.followers << follower
-    end
-
-    def cult_population
-        self.followers.count
+        @followers << follower
+        BloadOath.new(follower, self) 
     end
 
     def self.all
         @@all
+    end
+
+    def cult_population
+        self.followers.count
     end
 
     def self.find_by_name(name)
@@ -29,11 +30,34 @@ class Cult
     end
 
     def self.find_by_location(location)
-        self.all.find_all {|cult| cult.location == location}
+        self.all.select {|cult| cult.location == location }
     end
 
-    def self.find_by_founding_year(year)
-        self.all.find_all {|cult| cult.founding_year == year}
+    def self.find_by_year(year)
+        self.all.select {|cult| cult.founding_year == year}
     end
 
 end
+  # def recruit_follower(follower)
+    #     self.followers << follower
+    # end
+
+    # def cult_population
+    #     self.followers.count
+    # end
+
+    # def self.all
+    #     @@all
+    # end
+
+    # def self.find_by_name(name)
+    #     self.all.find {|cult| cult.name == name }
+    # end
+
+    # def self.find_by_location(location)
+    #     self.all.find_all {|cult| cult.location == location}
+    # end
+
+    # def self.find_by_founding_year(year)
+    #     self.all.find_all {|cult| cult.founding_year == year}
+    # end
