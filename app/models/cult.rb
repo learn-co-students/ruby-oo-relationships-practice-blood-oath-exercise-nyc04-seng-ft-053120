@@ -23,7 +23,7 @@ class Cult
 
   def bloodoaths
     BloodOath.all.select do |bloodoath|
-      bloodoath.cult.name == self.name
+      bloodoath.cult == self
     end
   end
 
