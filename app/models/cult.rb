@@ -1,5 +1,5 @@
 class Cult
-  attr_reader :name, :location, :founding_year, :slogan
+  attr_reader :name, :location, :founding_year, :slogan, :followers
 
   @@all  = []
 
@@ -8,12 +8,14 @@ class Cult
     @location = location
     @founding_year = founding_year
     @slogan = slogan
+    @followers = []
 
     @@all << self
   end
 
   def recruit_follower(follower)
     BloodOath.new(follower, self)
+    @followers << follower
   end
 
   def cult_population
@@ -41,4 +43,8 @@ class Cult
     blood_oaths.map {|blood_oath| blood_oath.cult}.uniq
   end
 
+  def average_age
+    # returns a float that is the avg age of this cult's followers
+    self.followers.sum(0.0) / self.followers.size
+  end
 end 
